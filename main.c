@@ -42,16 +42,17 @@ int main (int ac , char **av)
     else 
         ft_error(1);
     ft_set_element(&p, ar);
-    i = 0;
-    while(i < ar[0])
-    {
-        printf("thred");
-        printf("%d", i);
-        printf("\ntime_to_die===>%d\n", p.thread[i].time_to_die);
-        printf("time_to_eat===>%d\n", p.thread[i].time_to_eat);
-        printf("time_to_sleep==>%d\n", p.thread[i].time_to_sleep);
-        printf("time_must_eat==>%d\n", p.thread[i].time_must_eat);
-        printf("-----------------------------------------\n");
-        i++;
-    }
+    ft_creat_threads(&p);
+    // i = 0;
+    // while(i < ar[0])
+    // {
+    //     printf("thred");
+    //     printf("%d", i);
+    //     printf("\ntime_to_die===>%d\n", p.thread[i].time_to_die);
+    //     printf("time_to_eat===>%d\n", p.thread[i].time_to_eat);
+    //     printf("time_to_sleep==>%d\n", p.thread[i].time_to_sleep);
+    //     printf("time_must_eat==>%d\n", p.thread[i].time_must_eat);
+    //     printf("-----------------------------------------\n");
+    //     i++;
+    // }
 }
