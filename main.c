@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abechcha <abechcha@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/26 09:27:52 by abechcha          #+#    #+#             */
+/*   Updated: 2024/02/29 16:46:45 by abechcha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 int ft_is_digits(char *str)
@@ -19,6 +31,7 @@ int ft_is_digits(char *str)
         return 0;
     return 1;
 }
+
 int main (int ac , char **av)
 {
     int i = 1;
@@ -43,16 +56,6 @@ int main (int ac , char **av)
         ft_error(1);
     ft_set_element(&p, ar);
     ft_creat_threads(&p);
-    // i = 0;
-    // while(i < ar[0])
-    // {
-    //     printf("thred");
-    //     printf("%d", i);
-    //     printf("\ntime_to_die===>%d\n", p.thread[i].time_to_die);
-    //     printf("time_to_eat===>%d\n", p.thread[i].time_to_eat);
-    //     printf("time_to_sleep==>%d\n", p.thread[i].time_to_sleep);
-    //     printf("time_must_eat==>%d\n", p.thread[i].time_must_eat);
-    //     printf("-----------------------------------------\n");
-    //     i++;
-    // }
+    ft_is_die(&p);
+    // free_all(&p);
 }
