@@ -12,7 +12,7 @@
 
 NAME = philo
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fsanitize=thread
 
 SRC = creat_threads.c\
 	  ft_atoi.c\
@@ -27,13 +27,13 @@ OBJ = ${SRC:.c=.o}
 all : ${NAME}  clean execute
 
 execute :
-	@./philo 5 800 200 200
+	@./philo 5 200 400 500
 
 %.o : %.c philo.h
 	@cc ${CFLAGS} -c $< -o $@
 
 ${NAME} : ${OBJ}
-	@cc ${OBJ} -o ${NAME}
+	@cc ${CFLAGS} ${OBJ} -o ${NAME}
 
 clean :
 	@rm -rf ${OBJ}
