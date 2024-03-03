@@ -36,23 +36,25 @@ void ft_set_element(t_big *p, int *ar)
     p->forks = malloc(sizeof(pthread_mutex_t) * p->thread_num);
     if (!p->forks)
         return ;
-    
-    i = 0;
-    while (i < p->thread_num)
-        pthread_mutex_init(&(p->forks[i++]), NULL);
-        
-    pthread_mutex_init(&(p->message), NULL);
-    pthread_mutex_init(&(p->eat), NULL);
 
-    i = 1;
-    while(i -1 <= p->thread_num)
+    i = -1;
+    while (++i < p->thread_num)
+        pthread_mutex_init(&(p->forks[i]), NULL);
+
+    pthread_mutex_init(&(p->print_____message), NULL);
+    pthread_mutex_init(&(p->all_eat), NULL);
+    pthread_mutex_init(&(p->die), NULL);
+    pthread_mutex_init(&(p->meal________number), NULL);
+    pthread_mutex_init(&(p->eat____), NULL);
+
+    i = -1;
+    while(i++ < p->thread_num)
     {
-        p->thread[i-1].philo_id = i;
-        p->thread[i-1].fork_left = i;
-        p->thread[i-1].fork_right = (i + 1) % p->thread_num;
-        p->thread[i-1].meal_number = 0;
-        p->thread[i-1].time_of_last_meal = clock_now();
-        p->thread[i-1].info = p;
-        i++;
+        p->thread[i].philo_id = i + 1;
+        p->thread[i].fork_left = i + 1;
+        p->thread[i].fork_right = (i + 2) % p->thread_num;
+        p->thread[i].meal_number = 0;
+        p->thread[i].time_of_last_meal = 0;
+        p->thread[i].info = p;
     }
 }

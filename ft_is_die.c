@@ -12,27 +12,43 @@
 
 #include "philo.h"
 
-void    ft_is_die(t_big *p)
-{
-    int i;
 
-    while (p->is_all_eaten == 0)
-    {
-        i = 0;
-        while (i++ < p->thread_num)
-        {
-            if (clock_now() - p->thread[i].time_of_last_meal >= p->time_to_die)
-            {
-                display_message(p->thread, "died");
-                p->flag_dead = 1;
-            }
-        }
-        if (p->flag_dead == 1)
-            break ;
-        i = 0;
-        while (p->time_must_eat != -1 && i < p->thread_num && p->thread[i].meal_number >= p->time_to_eat)
-            i++;
-        if (i == p->thread_num)
-            p->is_all_eaten = 1;
-    }
+
+void	ft_is_die(t_big *prg, t_philo *philo)
+{
+			int	i;
+	while (!(prg->is_all_eaten))
+	{
+
+	i = -1;
+	while (++i < prg->thread_num && !(prg->flag_dead))
+	{
+		pthread_mutex_lock(&prg->eat____);
+		if ((clock_now() - philo[i].time_of_last_meal) >= prg->time_to_die)
+		{
+			display_message(philo, "died");
+			pthread_mutex_lock(&(prg->die));
+			prg->flag_dead = 1;
+			pthread_mutex_unlock(&(prg->die));
+		}
+		pthread_mutex_unlock(&prg->eat____);
+		usleep(100);
+	}
+	if (prg->flag_dead == 1)
+		break ;
+	i = 0;
+	pthread_mutex_lock(&(prg->meal________number));
+	while (prg->time_must_eat != -1
+		&& i < prg->thread_num
+		&& philo[i].meal_number >= prg->time_must_eat)
+		i++;
+	pthread_mutex_unlock(&(prg->meal________number));
+	if (i == prg->thread_num)
+	{
+		pthread_mutex_lock(&(prg->all_eat));
+		prg->is_all_eaten = 1;
+		pthread_mutex_unlock(&(prg->all_eat));
+	}
+	pthread_mutex_unlock(&(prg->all_eat));
+	}
 }

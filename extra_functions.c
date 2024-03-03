@@ -4,12 +4,18 @@
 
 void    display_message(t_philo *p, char *s)
 {
-    long long   time;
+	t_big	*prg;
 
-    time = clock_now() - p->info->start_prg;
-    pthread_mutex_lock(&(p->info->message));
-    printf("%lld %d %s\n", time, p->philo_id, s);
-    pthread_mutex_unlock(&(p->info->message));
+    prg = p->info;
+	pthread_mutex_lock(&(prg->print_____message));
+	pthread_mutex_lock(&(prg->die));
+	if (!(prg->flag_dead))
+	{
+		printf("%lld %d %s\n", (clock_now() - prg->start_prg), \
+		p->philo_id, s);
+	}
+	pthread_mutex_unlock(&(prg->die));
+	pthread_mutex_unlock(&prg->print_____message);
 }
 
 long long   clock_now()

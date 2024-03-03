@@ -27,7 +27,7 @@ OBJ = ${SRC:.c=.o}
 all : ${NAME}  clean execute
 
 execute :
-	@./philo 4 410 200 200
+	@./philo 5 800 200 200
 
 %.o : %.c philo.h
 	@cc ${CFLAGS} -c $< -o $@
@@ -35,7 +35,7 @@ execute :
 ${NAME} : ${OBJ}
 	@cc ${OBJ} -o ${NAME}
 
-clean : 
+clean :
 	@rm -rf ${OBJ}
 
 fclean : clean
@@ -43,4 +43,4 @@ fclean : clean
 
 re : fclean all
 
-PHONY : clean 
+PHONY : clean

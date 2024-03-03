@@ -43,37 +43,87 @@ void    free_all(t_big *p)
     i = 0;
     while (i++ < p->thread_num)
         pthread_mutex_destroy(&(p->forks[i]));
-    pthread_mutex_destroy(&(p->message));
-    pthread_mutex_destroy(&(p->eat));
+    pthread_mutex_destroy(&(p->print_____message));
+    pthread_mutex_destroy(&(p->eat____));
+    pthread_mutex_destroy(&(p->die));
+    pthread_mutex_destroy(&(p->all_eat));
+    pthread_mutex_destroy(&(p->meal________number));
     free (p->thread);
     free (p->forks);
 }
 
+void	init____mutex(t_big *prg)
+{
+	int	i;
+
+	i = -1;
+	prg->forks = malloc(sizeof(pthread_mutex_t) * prg->thread_num);
+	if (!(prg->forks))
+		return;
+	while (++i < prg->thread_num)
+		if (pthread_mutex_init(&(prg->forks[i]), NULL))
+			return;
+	if (pthread_mutex_init(&(prg->print_____message), NULL))
+		return;
+	if (pthread_mutex_init(&(prg->eat____), NULL))
+		return;
+	if (pthread_mutex_init(&(prg->die), NULL))
+		return;
+	if (pthread_mutex_init(&(prg->all_eat), NULL))
+		return;
+	if (pthread_mutex_init(&(prg->meal________number), NULL))
+		return;
+}
+
+void	init____philosopher(t_big *prg)
+{
+	int	i;
+
+	i = -1;
+	prg->thread = malloc(sizeof(t_philo) * prg->thread_num);
+	if (!(prg->thread))
+		return ;
+	while (++i < prg->thread_num)
+	{
+		prg->thread[i].fork_right = (i + 2) % prg->thread_num;
+		prg->thread[i].meal_number = 0;
+		prg->thread[i].info = prg;
+        prg->thread[i].time_end_each_philo = 0;
+		prg->thread[i].time_of_last_meal = 0;
+		prg->thread[i].philo_id = i + 1;
+		prg->thread[i].fork_left = i + 1;
+	}
+}
+
+void	init____infos(t_big *prg, char **av)
+{
+	prg->thread_num = ft_atoi(av[1]);
+	prg->time_to_die = ft_atoi(av[2]);
+	prg->time_to_eat = ft_atoi(av[3]);
+	prg->time_to_sleep = ft_atoi(av[4]);
+	prg->is_all_eaten = 0;
+	prg->flag_dead = 0;
+	if (av[5])
+		prg->time_must_eat = ft_atoi(av[5]);
+	else
+		prg->time_must_eat = -1;
+}
+
 int main (int ac , char **av)
 {
-    int i = 1;
     t_big   p;
-    int ar[5];
-    int j = 0;
-    if (ac == 6 || ac == 5)
-    {
-        while(i <= ac -1)
-        {
-            if (ft_is_digits(av[i]))
-                ar[j] = ft_atoi(av[i]);
-            else
-                ft_error(1);
-            i++;
-            j++;
-        }
-        if (ac == 5)
-            ar[j] = -1;
-    }
-    else 
-        ft_error(1);
-    ft_set_element(&p, ar);
+    if (!(ac == 6 || ac == 5))
+        return (-1);
+    // BDEL HADCHI KIFMA BGHITI MS YKON M9AD W KHDAM
+    // HADCHI HZITO MEN EENDI BASH NTESTI BIIIH BELA PARSING
+    init____infos(&p, av);
+    init____mutex(&p);
+    init____philosopher(&p);
+
+    // HADCHI MAT9ISOCH RA KHDAAAAAAM
+    // MAT9ISSSSSSOCH
     ft_creat_threads(&p);
-    ft_is_die(&p);
+    ft_is_die(&p, (p.thread));
     free_all(&p);
     return 0;
 }

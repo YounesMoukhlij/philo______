@@ -23,6 +23,7 @@ typedef struct s_philo
 {
     struct s_big   *info;
     int          philo_id;
+    long long   time_end_each_philo;
     long long   time_of_last_meal;
     pthread_t   thread_philo;
     int         fork_left;
@@ -42,10 +43,12 @@ typedef struct s_big
     t_philo *thread;
     int thread_num;
 
-    pthread_mutex_t *forks;
-    pthread_mutex_t message;
-    pthread_mutex_t eat;
-    pthread_mutex_t die;
+	pthread_mutex_t		eat____;
+	pthread_mutex_t		die;
+	pthread_mutex_t		all_eat;
+	pthread_mutex_t		meal________number;
+	pthread_mutex_t		*forks;
+	pthread_mutex_t		print_____message;
 }   t_big;
 
 int     ft_is_digits(char *str);
@@ -57,7 +60,7 @@ void    display_message(t_philo *p, char *s);
 int     check_is_dead(t_big *ptr);
 long long   clock_now();
 
-void    ft_is_die(t_big *p);
+void	ft_is_die(t_big *prg, t_philo *philo);
 void    ft_set_element(t_big *p, int *ar);
 void    ft_creat_threads(t_big *p);
 #endif
