@@ -7,7 +7,9 @@ void    display_message(t_philo *p, char *s)
     long long   time;
 
     time = clock_now() - p->info->start_prg;
+    pthread_mutex_lock(&(p->info->message));
     printf("%lld %d %s\n", time, p->philo_id, s);
+    pthread_mutex_unlock(&(p->info->message));
 }
 
 long long   clock_now()

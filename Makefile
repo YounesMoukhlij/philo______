@@ -6,7 +6,7 @@
 #    By: abechcha <abechcha@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/26 09:19:32 by abechcha          #+#    #+#              #
-#    Updated: 2024/03/01 10:12:39 by abechcha         ###   ########.fr        #
+#    Updated: 2024/03/02 16:02:32 by abechcha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,19 +24,22 @@ SRC = creat_threads.c\
 
 OBJ = ${SRC:.c=.o}
 
-all : ${NAME} 
+all : ${NAME}  clean execute
+
+execute :
+	@./philo 4 410 200 200
 
 %.o : %.c philo.h
-	cc ${CFLAGS} -c $< -o $@
+	@cc ${CFLAGS} -c $< -o $@
 
 ${NAME} : ${OBJ}
-	cc ${OBJ} -o ${NAME}
+	@cc ${OBJ} -o ${NAME}
 
 clean : 
-	rm -rf ${OBJ}
+	@rm -rf ${OBJ}
 
 fclean : clean
-	rm -rf ${NAME}
+	@rm -rf ${NAME}
 
 re : fclean all
 

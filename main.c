@@ -6,7 +6,7 @@
 /*   By: abechcha <abechcha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 09:27:52 by abechcha          #+#    #+#             */
-/*   Updated: 2024/02/29 16:46:45 by abechcha         ###   ########.fr       */
+/*   Updated: 2024/03/02 15:59:46 by abechcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,23 @@ int ft_is_digits(char *str)
     if (s > 2147483647)
         return 0;
     return 1;
+}
+
+
+void    free_all(t_big *p)
+{
+    int i;
+
+    i = 0;
+    while(i++ < p->thread_num)
+        pthread_join(p->thread[i].thread_philo , NULL);
+    i = 0;
+    while (i++ < p->thread_num)
+        pthread_mutex_destroy(&(p->forks[i]));
+    pthread_mutex_destroy(&(p->message));
+    pthread_mutex_destroy(&(p->eat));
+    free (p->thread);
+    free (p->forks);
 }
 
 int main (int ac , char **av)
@@ -57,5 +74,6 @@ int main (int ac , char **av)
     ft_set_element(&p, ar);
     ft_creat_threads(&p);
     ft_is_die(&p);
-    // free_all(&p);
+    free_all(&p);
+    return 0;
 }

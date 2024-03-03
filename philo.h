@@ -6,7 +6,7 @@
 /*   By: abechcha <abechcha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 09:27:58 by abechcha          #+#    #+#             */
-/*   Updated: 2024/03/01 10:12:16 by abechcha         ###   ########.fr       */
+/*   Updated: 2024/03/02 15:47:52 by abechcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,19 +43,21 @@ typedef struct s_big
     int thread_num;
 
     pthread_mutex_t *forks;
-    pthread_mutex_t mutex_1;
+    pthread_mutex_t message;
+    pthread_mutex_t eat;
+    pthread_mutex_t die;
 }   t_big;
 
-int ft_is_digits(char *str);
-long ft_atoi(char *str);
-void ft_error(int f);
-void *ft_life_circle(void *p);
-void   ft_eat(t_philo *p);
+int     ft_is_digits(char *str);
+long    ft_atoi(char *str);
+void    ft_error(int f);
+void    *ft_life_circle(void *p);
+void    ft_is_eat(t_philo *p);
 void    display_message(t_philo *p, char *s);
-int check_is_dead(t_big *ptr);
+int     check_is_dead(t_big *ptr);
 long long   clock_now();
 
-void ft_is_die(t_big *p);
-void ft_set_element(t_big *p, int *ar);
-void ft_creat_threads(t_big *p);
+void    ft_is_die(t_big *p);
+void    ft_set_element(t_big *p, int *ar);
+void    ft_creat_threads(t_big *p);
 #endif
